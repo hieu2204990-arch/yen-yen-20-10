@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chúc Mừng 20/10 - Yến Yến Yêu Thương 💖</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rose-deep: #800f2f;
+            --rose-primary: #ff4d6d;
+            --rose-soft: #ff758f;
+            --rose-pastel: #ffb3c1;
+            --rose-light: #fff0f3;
+            --gold-accent: #ffd166;
+            --glass-border: rgba(255, 179, 193, 0.35);
+            --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), 0 0 30px rgba(255, 77, 109, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at 50% 35%, #3d0c1e 0%, #1c0510 55%, #0c0207 100%);
+            color: var(--rose-light);
+            position: relative;
+        }
+
+        /* Hiệu ứng ánh sáng nền Rose Gold */
+        .ambient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(85px);
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatOrb 12s ease-in-out infinite alternate;
+        }
+        .orb-1 { width: 340px; height: 340px; background: #ff4d6d; top: -80px; left: -80px; }
+        .orb-2 { width: 300px; height: 300px; background: #c9184a; bottom: -70px; right: -60px; animation-delay: -5s; }
+        .orb-3 { width: 240px; height: 240px; background: #ff8fa3; top: 40%; left: 60%; opacity: 0.2; animation-delay: -2.5s; }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, -35px) scale(1.12); }
+        }
+
+        #bgCanvas, #fxCanvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+        }
+        #bgCanvas { z-index: 2; }
+        #fxCanvas { z-index: 50; }
+
+        /* Thanh điều hướng & Nhạc */
+        .top-bar {
+            position: fixed;
+            top: 18px; left: 20px; right: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 40;
+            pointer-events: none;
+        }
+
+        .badge-2010 {
+            pointer-events: auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            color: var(--rose-pastel);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #ff4d6d;
+            box-shadow: 0 0 10px #ff4d6d;
+            animation: pulseDot 1.6s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.6; }
+        }
+
+        .music-btn {
+            pointer-events: auto;
+            background: rgba(255, 77, 109, 0.2);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 179, 193, 0.45);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 999px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .music-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 12px;
+        }
+        .music-bars span {
+            width: 2.5px;
+            background: #ffb3c1;
+            border-radius: 2px;
+            height: 4px;
+        }
+        .music-btn.playing .music-bars span:nth-child(1) { animation: eqBar 0.7s infinite ease-in-out; }
+        .music-btn.playing .music-bars span:nth-child(2) { animation: eqBar 0.5s infinite ease-in-out 0.15s; }
+        .music-btn.playing .music-bars span:nth-child(3) { animation: eqBar 0.65s infinite ease-in-out 0.3s; }
+
+        @keyframes eqBar {
+            0%, 100% { height: 3px; }
+            50% { height: 12px; }
+        }
+
+        /* Bố cục 3 tầng (Stages) */
+        .stage {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.85s ease, transform 0.85s ease;
+            transform: scale(0.95);
+            padding: 20px;
+        }
+        .stage.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        /* TẦNG 1: TRÁI TIM 3D */
+        #heartCanvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            cursor: grab;
+            z-index: 1;
+        }
+        .stage1-ui {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            width: 100%;
+            max-width: 520px;
+            padding: 68px 16px 32px;
+            pointer-events: none;
+        }
+        .stage1-sub {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--rose-pastel);
+            text-align: center;
+            margin-bottom: 6px;
+        }
+        .stage1-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2.3rem, 6vw, 3.4rem);
+            color: #fff;
+            text-shadow: 0 0 25px rgba(255, 77, 109, 0.85);
+            text-align: center;
+        }
+        .stage1-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+        .drag-hint {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 179, 193, 0.28);
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            color: #ffe5ec;
+        }
+
+        .btn-primary {
+            pointer-events: auto;
+            background: linear-gradient(135deg, #ff4d6d 0%, #c9184a 100%);
+            color: #fff;
+            border: 1px solid rgba(255, 204, 213, 0.55);
+            padding: 14px 32px;
+            border-radius: 999px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.04);
+        }
+
+        /* TẦNG 2: THIỆP HOA HỒNG & POLAROID */
+        .bloom-card {
+            background: rgba(45, 10, 24, 0.65);
+            backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(255, 179, 193, 0.4);
+            border-radius: 28px;
+            padding: 28px 26px;
+            width: 100%;
+            max-width: 440px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+        .bloom-tag {
+            display: inline-block;
+            background: rgba(255, 77, 109, 0.22);
+            border: 1px solid rgba(255, 179, 193, 0.4);
+            color: #ffb3c1;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+        }
+        .bloom-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.3rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .bloom-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #ff8fa3;
+            display: block;
+        }
+        .bloom-desc {
+            font-size: 0.92rem;
+            color: #ffe5ec;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+        .polaroid-strip {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 6px 0 20px;
+        }
+        .mini-polaroid {
+            background: #fff;
+            padding: 5px 5px 14px 5px;
+            border-radius: 6px;
+            width: 82px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .mini-polaroid img {
+            width: 100%;
+            height: 78px;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+        .mini-polaroid:nth-child(1) { transform: rotate(-8deg); }
+        .mini-polaroid:nth-child(2) { transform: rotate(2deg) scale(1.06); }
+        .mini-polaroid:nth-child(3) { transform: rotate(9deg); }
+        .mini-polaroid:hover { transform: rotate(0deg) scale(1.15); z-index: 5; }
+
+        /* TẦNG 3: HỘP QUÀ, TÂM THƯ & ALBUM 5 ẢNH */
+        .stage3-container {
+            width: 100%;
+            max-width: 580px;
+            max-height: 86vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .gift-stage { text-align: center; }
+        .gift-stage.hidden { display: none; }
+        .gift-box-wrap {
+            width: 150px; height: 150px;
+            margin: 20px auto;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: giftBounce 1.8s infinite ease-in-out;
+        }
+        @keyframes giftBounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(-4deg); }
+            50% { transform: translateY(-10px) rotate(4deg); }
+        }
+
+        .letter-modal {
+            display: none;
+            width: 100%;
+            background: rgba(38, 8, 20, 0.82);
+            backdrop-filter: blur(22px);
+            border: 1.5px solid rgba(255, 179, 193, 0.45);
+            border-radius: 26px;
+            padding: 22px 20px;
+            box-shadow: var(--card-shadow);
+            max-height: 82vh;
+            overflow-y: auto;
+        }
+        .letter-modal.show { display: block; }
+
+        .modal-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            padding: 4px;
+            margin-bottom: 18px;
+        }
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--rose-pastel);
+            padding: 9px 12px;
+            border-radius: 999px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #ff4d6d 0%, #c9184a 100%);
+            color: #fff;
+        }
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; }
+
+        .letter-paper {
+            background: linear-gradient(180deg, #fff9fb 0%, #ffeef2 100%);
+            color: #4a1525;
+            border-radius: 18px;
+            padding: 22px 20px;
+        }
+        .letter-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            border-bottom: 1px dashed rgba(201, 24, 74, 0.25);
+            padding-bottom: 12px;
+        }
+        .letter-avatar {
+            width: 54px; height: 54px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ff4d6d;
+        }
+        .letter-greeting {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: #c9184a;
+        }
+        .letter-body {
+            font-size: 0.95rem;
+            line-height: 1.72;
+            color: #3d101e;
+            white-space: pre-line;
+            min-height: 160px;
+        }
+        .letter-sign {
+            margin-top: 16px;
+            text-align: right;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.45rem;
+            color: #c9184a;
+            font-weight: 700;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+        .polaroid-card {
+            background: #fff;
+            padding: 8px 8px 14px 8px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .polaroid-card:nth-child(5) {
+            grid-column: span 2;
+            max-width: 240px;
+            margin: 0 auto;
+        }
+        .polaroid-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+        .polaroid-caption {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.1rem;
+            color: #800f2f;
+            font-weight: 700;
+        }
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 2, 6, 0.9);
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .lightbox.open { display: flex; }
+        .lightbox-inner {
+            background: #fff;
+            padding: 12px 12px 20px 12px;
+            border-radius: 14px;
+            max-width: 360px;
+            width: 90%;
+            text-align: center;
+        }
+        .lightbox-inner img {
+            width: 100%;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .lightbox-cap {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            color: #c9184a;
+            margin-top: 10px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+
+    <canvas id="bgCanvas"></canvas>
+    <canvas id="fxCanvas"></canvas>
+
+    <!-- Nút bật nhạc và Huy hiệu 20/10 -->
+    <div class="top-bar">
+        <div class="badge-2010">
+            <span class="badge-dot"></span>
+            <span>20/10 • YẾN YẾN 💖</span>
+        </div>
+        <button class="music-btn" id="musicBtn">
+            <div class="music-bars"><span></span><span></span><span></span></div>
+            <span id="musicText">Giai điệu ♫</span>
+        </button>
+    </div>
+
+    <!-- TẦNG 1: TRÁI TIM HẠT 3D XOAY TƯƠNG TÁC -->
+    <section class="stage active" id="stage1">
+        <canvas id="heartCanvas"></canvas>
+        <div class="stage1-ui">
+            <div>
+                <p class="stage1-sub">Món quà nhỏ dành riêng tặng em</p>
+                <h1 class="stage1-title">Yến Yến Của Anh 💕</h1>
+            </div>
+            <div class="stage1-footer">
+                <div class="drag-hint">✨ Chạm & kéo để xoay trái tim 3D nha ♥</div>
+                <button class="btn-primary" onclick="goToStage(2)">
+                    <span>Mở thiệp 20/10 nè 🌹</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- TẦNG 2: THIỆP HOA HỒNG & POLAROID -->
+    <section class="stage" id="stage2">
+        <div class="bloom-card">
+            <span class="bloom-tag">Happy Vietnamese Women's Day</span>
+            <h2 class="bloom-title">
+                Chúc Mừng 20/10
+                <span class="bloom-name">Yến Yến Đáng Yêu ✨</span>
+            </h2>
+            <p class="bloom-desc">
+                Cảm ơn em vì đã đến bên anh, mang theo nụ cười ấm áp và biến mỗi khoảnh khắc bình dị trở nên thật rực rỡ.
+            </p>
+
+            <div class="polaroid-strip">
+                <div class="mini-polaroid" onclick="openLightbox(0)"><img src="anh1.png" alt="Yến Yến"></div>
+                <div class="mini-polaroid" onclick="openLightbox(4)"><img src="anh5.png" alt="Hai đứa"></div>
+                <div class="mini-polaroid" onclick="openLightbox(1)"><img src="anh2.png" alt="Kỷ niệm"></div>
+            </div>
+
+            <button class="btn-primary" onclick="goToStage(3)" style="width:100%; justify-content:center;">
+                <span>Tiếp nè, nhận quà của Anh nha 😎🎁</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- TẦNG 3: HỘP QUÀ & BỨC THƯ TÌNH -->
+    <section class="stage" id="stage3">
+        <div class="stage3-container">
+            <div class="gift-stage" id="giftBoxPrompt">
+                <h2 style="font-family:'Dancing Script', cursive; font-size:2.4rem; color:#fff;">
+                    Chạm vào hộp quà nha Yến Yến! 💝
+                </h2>
+                <div class="gift-box-wrap" id="openGiftBtn" style="font-size: 5.5rem;">🎁</div>
+                <p style="font-size:0.9rem; color:#ffe5ec;">(Nhấn vào hộp quà để mở bức thư của Anh 💌)</p>
+            </div>
+
+            <div class="letter-modal" id="letterModal">
+                <div class="modal-tabs">
+                    <button class="tab-btn active" id="tabLetterBtn" onclick="switchTab('letter')">💌 Tâm thư gửi Em</button>
+                    <button class="tab-btn" id="tabGalleryBtn" onclick="switchTab('gallery')">📸 Khoảnh khắc (5 ảnh)</button>
+                </div>
+
+                <!-- Nội dung bức thư -->
+                <div class="tab-pane active" id="paneLetter">
+                    <div class="letter-paper">
+                        <div class="letter-header">
+                            <img class="letter-avatar" src="anh3.png" alt="Yến Yến">
+                            <div>
+                                <div class="letter-greeting">Gửi Yến Yến thương yêu của Anh,</div>
+                                <div style="font-size:0.76rem; color:#9e4760;">Ngày Phụ nữ Việt Nam 20/10 🌹</div>
+                            </div>
+                        </div>
+                        <div class="letter-body" id="typewriterText"></div>
+                        <div class="letter-sign" id="letterSign" style="opacity:0; transition: opacity 0.8s;">
+                            Yêu em thật nhiều,<br>Anh của em ♥
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Album 5 bức ảnh kỷ niệm -->
+                <div class="tab-pane" id="paneGallery">
+                    <div class="gallery-grid">
+                        <div class="polaroid-card" onclick="openLightbox(0)">
+                            <img src="anh1.png" alt="Ảnh 1"><div class="polaroid-caption">Nàng thơ dịu dàng 🌸</div>
+                        </div>
+                        <div class="polaroid-card" onclick="openLightbox(4)">
+                            <img src="anh5.png" alt="Ảnh 5"><div class="polaroid-caption">Bình yên bên nhau 💕</div>
+                        </div>
+                        <div class="polaroid-card" onclick="openLightbox(2)">
+                            <img src="anh3.png" alt="Ảnh 3"><div class="polaroid-caption">Xinh xắn mọi góc nhìn ✨</div>
+                        </div>
+                        <div class="polaroid-card" onclick="openLightbox(3)">
+                            <img src="anh4.png" alt="Ảnh 4"><div class="polaroid-caption">Siêu cấp đáng yêu 🥰</div>
+                        </div>
+                        <div class="polaroid-card" onclick="openLightbox(1)">
+                            <img src="anh2.png" alt="Ảnh 2"><div class="polaroid-caption">Mãi nắm tay nhau nhé 💑</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <div class="lightbox-inner" onclick="event.stopPropagation()">
+            <img id="lightboxImg" src="" alt="Kỷ niệm">
+            <div class="lightbox-cap" id="lightboxCap"></div>
+        </div>
+    </div>
+
+    <script>
+        /* Chỉnh sửa lời chúc 20/10 tại đây */
+        const LOVE_LETTER_CONTENT = `Nhân ngày Phụ nữ Việt Nam 20/10, anh muốn gửi đến cô gái đặc biệt nhất trong lòng anh ngàn lời chúc ngọt ngào và ấm áp nhất!
+
+Cảm ơn Yến Yến vì đã bước vào cuộc đời anh. Dù là lúc em dịu dàng như nàng thơ, lúc bận rộn trong chiếc áo blouse trắng, hay những khoảnh khắc nhí nhố đáng yêu bên anh, em đều làm trái tim anh rung động.
+
+Chúc em yêu của anh ngày 20/10 và cả 365 ngày trong năm luôn xinh đẹp rạng rỡ, tràn ngập niềm vui, bớt đi những áp lực mệt mỏi và luôn giữ mãi nụ cười tỏa nắng trên môi. Mọi điều dịu dàng nhất thế gian này đều xứng đáng thuộc về em!`;
+
+        const GALLERY_DATA = [
+            { src: "anh1.png", cap: "Nàng thơ dịu dàng của anh 🌸" },
+            { src: "anh2.png", cap: "Nụ cười hạnh phúc khi có nhau 💑" },
+            { src: "anh3.png", cap: "Góc nghiêng thần thánh của Yến Yến ✨" },
+            { src: "anh4.png", cap: "Cô gái vừa giỏi giang vừa lầy lội đáng yêu 🥰" },
+            { src: "anh5.png", cap: "Đi đâu cũng được, miễn là cùng em 💕" }
+        ];
+
+        function openLightbox(idx) {
+            document.getElementById('lightboxImg').src = GALLERY_DATA[idx].src;
+            document.getElementById('lightboxCap').textContent = GALLERY_DATA[idx].cap;
+            document.getElementById('lightbox').classList.add('open');
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('open');
+        }
+
+        function goToStage(num) {
+            document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+            document.getElementById('stage' + num).classList.add('active');
+        }
+
+        function switchTab(tab) {
+            document.getElementById('tabLetterBtn').classList.toggle('active', tab === 'letter');
+            document.getElementById('tabGalleryBtn').classList.toggle('active', tab === 'gallery');
+            document.getElementById('paneLetter').classList.toggle('active', tab === 'letter');
+            document.getElementById('paneGallery').classList.toggle('active', tab === 'gallery');
+        }
+
+        let typingStarted = false;
+        document.getElementById('openGiftBtn').addEventListener('click', () => {
+            document.getElementById('giftBoxPrompt').classList.add('hidden');
+            document.getElementById('letterModal').classList.add('show');
+            if (!typingStarted) {
+                typingStarted = true;
+                const target = document.getElementById('typewriterText');
+                let i = 0;
+                (function typeChar() {
+                    if (i < LOVE_LETTER_CONTENT.length) {
+                        target.textContent += LOVE_LETTER_CONTENT.charAt(i++);
+                        setTimeout(typeChar, 22);
+                    } else {
+                        document.getElementById('letterSign').style.opacity = '1';
+                    }
+                })();
+            }
+        });
+
+        /* Trái tim 3D hạt xoay tương tác */
+        const heartCanvas = document.getElementById('heartCanvas');
+        const hCtx = heartCanvas.getContext('2d');
+        let hW = heartCanvas.width = window.innerWidth;
+        let hH = heartCanvas.height = window.innerHeight;
+        window.addEventListener('resize', () => {
+            hW = heartCanvas.width = window.innerWidth;
+            hH = heartCanvas.height = window.innerHeight;
+        });
+
+        const palette = ['#ff4d6d', '#ff758f', '#ffb3c1', '#c9184a', '#ffd166', '#fff0f3'];
+        const heartParticles = Array.from({ length: 1100 }, () => {
+            const t = Math.random() * Math.PI * 2;
+            const rScale = Math.pow(Math.random(), 0.35);
+            const hx = 16 * Math.pow(Math.sin(t), 3) * rScale;
+            const hy = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t)) * rScale;
+            const hz = (Math.random() - 0.5) * 13 * Math.sqrt(Math.max(0, 1 - rScale * 0.65));
+            return { bx: hx, by: hy, bz: hz, size: Math.random() * 2.2 + 1.1, color: palette[Math.floor(Math.random() * palette.length)] };
+        });
+
+        let rotY = 0.25, rotX = -0.1, isDragging = false, lastX = 0, lastY = 0;
+        heartCanvas.addEventListener('pointerdown', e => { isDragging = true; lastX = e.clientX; lastY = e.clientY; });
+        window.addEventListener('pointermove', e => {
+            if (!isDragging) return;
+            rotY += (e.clientX - lastX) * 0.008;
+            rotX = Math.max(-0.8, Math.min(0.8, rotX + (e.clientY - lastY) * 0.008));
+            lastX = e.clientX; lastY = e.clientY;
+        });
+        window.addEventListener('pointerup', () => isDragging = false);
+
+        (function renderHeart3D(time) {
+            hCtx.clearRect(0, 0, hW, hH);
+            if (!isDragging) rotY += 0.0065;
+            const beat = 1 + 0.055 * Math.sin(time * 0.0042);
+            const baseScale = Math.min(hW, hH) / 44 * beat;
+            const cosY = Math.cos(rotY), sinY = Math.sin(rotY), cosX = Math.cos(rotX), sinX = Math.sin(rotX);
+
+            heartParticles.forEach(p => {
+                const x1 = p.bx * cosY - p.bz * sinY;
+                const z1 = p.bz * cosY + p.bx * sinY;
+                const y2 = p.by * cosX - z1 * sinX;
+                const z2 = z1 * cosX + p.by * sinX;
+                const persp = 320 / (380 + z2 * 6);
+                hCtx.fillStyle = p.color;
+                hCtx.beginPath();
+                hCtx.arc(hW / 2 + x1 * baseScale * persp, hH / 2 + y2 * baseScale * persp - 10, p.size * persp, 0, Math.PI * 2);
+                hCtx.fill();
+            });
+            requestAnimationFrame(renderHeart3D);
+        })(0);
+    </script>
+</body>
+</html>
